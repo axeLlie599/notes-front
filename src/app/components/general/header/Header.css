@@ -1,0 +1,48 @@
+.Header {
+  --height: var(--header-height, 5rem);
+  --bg-color: var(--header-bg-color, #7a7a7a00);
+  --padding-edge: var(--padding-medium, 24px);
+  --color: var(--colors-on-primary, #131313);
+  --blur: var(--blur-radius, 10px);
+  --shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  height: 100%;
+  max-height: var(--height);
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--color);
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
+
+  &.blurred {
+    backdrop-filter: blur(var(--blur));
+  }
+
+  & .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 var(--padding-edge);
+
+    & > section {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      &.left {
+        justify-content: flex-start;
+      }
+      &.right {
+        gap: 16px;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
