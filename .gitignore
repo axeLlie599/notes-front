@@ -1,0 +1,26 @@
+# Node.js and TypeScript files
+node_modules/
+dist/
+build/
+
+# Vite files
+.vite/
+
+# TypeScript and JavaScript files
+*.tsbuildinfo
+*.js.map
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Other files
+README.md
+LICENSE
+package-lock.json
+yarn.lock
+bun.lockb
