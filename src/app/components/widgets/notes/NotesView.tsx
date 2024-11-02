@@ -26,9 +26,7 @@ export default function Notes({ notesHook }: NotesViewProps) {
         <Splash.Title title="Error" />
         <Splash.Content>
           <span className="error_details">
-            <span>
-              {notesHook.error.codename}: {notesHook.error.message}
-            </span>
+            <code>{notesHook.error.message}</code>
           </span>
           <p>Possibly, you haven't Internet connection or server won't work</p>
           <p>
