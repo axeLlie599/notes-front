@@ -1,0 +1,43 @@
+.Header {
+  --header-height: 4.2rem;
+  border-radius: var(--md-sys-shape-shape-none);
+  background-color: var(--md-sys-color-surface);
+  height: var(--header-height);
+  padding: 0 1rem;
+  color: var(--md-sys-color-on-surface);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  & section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    &.left {
+      justify-content: flex-start;
+    }
+    &.center {
+      justify-content: center;
+    }
+    &.right {
+      justify-content: flex-end;
+      & > *:not(:first-child),
+      & > *:not(:last-child) {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  & section > .headline {
+    width: auto;
+    height: auto;
+    line-height: 28pt;
+    font-size: 22pt;
+    font-weight: 500;
+  }
+}
