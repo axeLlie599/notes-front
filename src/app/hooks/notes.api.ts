@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSnackbar } from "notistack";
-import axios, { AxiosError, CancelTokenSource } from "axios";
+import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
 
 export interface Note {
   id?: number | null;
@@ -9,18 +9,10 @@ export interface Note {
   content: string;
 }
 
-export interface APIError {
-  detail?: string;
-  codename?: string;
-  code?: number;
-  title?: string;
-  message: string;
-}
-
 export type NotesHook = {
   notes: Note[];
   loading: boolean;
-  error: APIError | null;
+  error: AxiosError | null;
   createNote: (title?: string, content?: string) => Promise<Note>;
   updateNote: (updatedNote: Note) => Promise<Note>;
   deleteNote: (noteId: number) => Promise<void>;
@@ -34,61 +26,47 @@ const HEARTBEAT_INTERVAL = 30000;
 function useNotes(apiUrl: string): NotesHook {
   const { enqueueSnackbar } = useSnackbar();
   const [notes, setNotes] = useState<Note[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<APIError | null>(null);
+  const [loading, setLoading] = useState(true); // Initial loading true
+  const [error, setError] = useState<AxiosError | null>(null);
 
   const heartbeatRef = useRef<number | null>(null);
   const cancelTokenSourceRef = useRef<CancelTokenSource | null>(null);
 
   const handleError = useCallback(
-    (err: unknown, prefixMessage?: string) => {
-      let apiError: APIError | null = null;
-      if (axios.isAxiosError(err)) {
-        const error = err as AxiosError;
-        apiError = (error.response?.data as APIError) || {
-          message: error.message,
-        };
-        if (error.response) {
-          apiError.code = error.response.status;
-        }
-      } else if (err instanceof Error) {
-        apiError = { message: err.message };
-      } else {
-        apiError = { message: "An unknown error occurred." };
-      }
-      setError(apiError);
-      enqueueSnackbar(
-        `${prefixMessage ? prefixMessage + " " : ""}${apiError?.message || "Unknown error"}`,
-        {
-          variant: "error",
-        }
-      );
+    (err: AxiosError) => {
+      setError(err);
+      enqueueSnackbar(`Error ${err.code}: ${err.message}`, {
+        variant: "error",
+      });
     },
     [enqueueSnackbar]
   );
 
   const fetchNotes = useCallback(async () => {
+    if (!loading) setLoading(true); // Set loading if not already loading
+
     if (cancelTokenSourceRef.current) {
       cancelTokenSourceRef.current.cancel("Previous request cancelled.");
     }
-
     cancelTokenSourceRef.current = axios.CancelToken.source();
 
     try {
-      setLoading(true);
-      const response = await axios.get<Note[]>(`${apiUrl}/notes`, {
-        cancelToken: cancelTokenSourceRef.current.token,
-      });
+      const response: AxiosResponse<Note[]> = await axios.get(
+        `${apiUrl}/notes`,
+        {
+          cancelToken: cancelTokenSourceRef.current.token,
+        }
+      );
       setNotes(response.data);
-      setLoading(false);
       setError(null);
     } catch (err) {
       if (!axios.isCancel(err)) {
-        handleError(err, "Error fetching notes:");
-        setLoading(false);
+        handleError(err as AxiosError);
       }
+    } finally {
+      setLoading(false);
     }
-  }, [apiUrl, handleError]);
+  }, [apiUrl, handleError, loading]); // loading dependency
 
   const handleSuccessfulOperation = useCallback(
     (message: string) => {
@@ -101,14 +79,14 @@ function useNotes(apiUrl: string): NotesHook {
   const createNote = useCallback(
     async (title = "none", content = "none") => {
       try {
-        const response = await axios.post<Note>(`${apiUrl}/notes/new`, {
-          title,
-          content,
-        });
+        const response: AxiosResponse<Note> = await axios.post(
+          `${apiUrl}/notes/new`,
+          { title, content }
+        );
         handleSuccessfulOperation("Note created successfully");
         return response.data;
       } catch (err) {
-        handleError(err, "Error creating note:");
+        handleError(err as AxiosError);
         throw err;
       }
     },
@@ -118,14 +96,14 @@ function useNotes(apiUrl: string): NotesHook {
   const updateNote = useCallback(
     async (updatedNote: Note) => {
       try {
-        const response = await axios.put<Note>(
+        const response: AxiosResponse<Note> = await axios.put(
           `${apiUrl}/notes/${updatedNote.id}/update`,
           updatedNote
         );
         handleSuccessfulOperation("Note updated successfully");
         return response.data;
       } catch (err) {
-        handleError(err, "Error updating note:");
+        handleError(err as AxiosError);
         throw err;
       }
     },
@@ -138,7 +116,7 @@ function useNotes(apiUrl: string): NotesHook {
         await axios.delete(`${apiUrl}/notes/${noteId}/delete`);
         handleSuccessfulOperation("Note deleted successfully");
       } catch (err) {
-        handleError(err, "Error deleting note:");
+        handleError(err as AxiosError);
         throw err;
       }
     },
@@ -150,17 +128,19 @@ function useNotes(apiUrl: string): NotesHook {
       await axios.delete(`${apiUrl}/notes/clear`);
       handleSuccessfulOperation("All notes cleared successfully");
     } catch (err) {
-      handleError(err, "Error clearing notes:");
+      handleError(err as AxiosError);
       throw err;
     }
   }, [apiUrl, handleError, handleSuccessfulOperation]);
 
   const count = useCallback(async () => {
     try {
-      const response = await axios.get<number>(`${apiUrl}/notes/count`);
+      const response: AxiosResponse<number> = await axios.get(
+        `${apiUrl}/notes/count`
+      );
       return response.data;
     } catch (err) {
-      handleError(err, "Error getting note count:");
+      handleError(err as AxiosError);
       throw err;
     }
   }, [apiUrl, handleError]);
@@ -170,17 +150,22 @@ function useNotes(apiUrl: string): NotesHook {
   }, [fetchNotes]);
 
   useEffect(() => {
-    void fetchNotes(); // Initial fetch
+    fetchNotes();
+    return () => {
+      if (cancelTokenSourceRef.current) {
+        cancelTokenSourceRef.current.cancel();
+      }
+      setLoading(false); // Set loading false on unmount
+    };
+  }, [fetchNotes]);
 
+  useEffect(() => {
     heartbeatRef.current = setInterval(() => {
       void fetchNotes();
     }, HEARTBEAT_INTERVAL);
 
     return () => {
       clearInterval(heartbeatRef.current!);
-      if (cancelTokenSourceRef.current) {
-        cancelTokenSourceRef.current.cancel();
-      }
     };
   }, [fetchNotes]);
 
