@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useSnackbar } from "notistack";
 import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
+import { TimeUnits } from "../utils";
 
 export interface Note {
   id?: number | null;
@@ -11,8 +12,8 @@ export interface Note {
 
 export type NotesHook = {
   notes: Note[];
-  loading: boolean;
   error: AxiosError | null;
+  isLoading: boolean;
   createNote: (title?: string, content?: string) => Promise<Note>;
   updateNote: (updatedNote: Note) => Promise<Note>;
   deleteNote: (noteId: number) => Promise<void>;
@@ -21,13 +22,13 @@ export type NotesHook = {
   refetch: () => Promise<void>;
 };
 
-const HEARTBEAT_INTERVAL = 30000;
+const HEARTBEAT_INTERVAL = TimeUnits.Minute;
 
 function useNotes(apiUrl: string): NotesHook {
   const { enqueueSnackbar } = useSnackbar();
   const [notes, setNotes] = useState<Note[]>([]);
-  const [loading, setLoading] = useState(true); // Initial loading true
   const [error, setError] = useState<AxiosError | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const heartbeatRef = useRef<number | null>(null);
   const cancelTokenSourceRef = useRef<CancelTokenSource | null>(null);
@@ -43,8 +44,7 @@ function useNotes(apiUrl: string): NotesHook {
   );
 
   const fetchNotes = useCallback(async () => {
-    if (!loading) setLoading(true); // Set loading if not already loading
-
+    setIsLoading(true);
     if (cancelTokenSourceRef.current) {
       cancelTokenSourceRef.current.cancel("Previous request cancelled.");
     }
@@ -59,21 +59,20 @@ function useNotes(apiUrl: string): NotesHook {
       );
       setNotes(response.data);
       setError(null);
+      setIsLoading(false);
     } catch (err) {
       if (!axios.isCancel(err)) {
         handleError(err as AxiosError);
+        setIsLoading(false);
       }
-    } finally {
-      setLoading(false);
     }
-  }, [apiUrl, handleError, loading]); // loading dependency
+  }, [apiUrl, handleError]);
 
   const handleSuccessfulOperation = useCallback(
     (message: string) => {
       enqueueSnackbar(message, { variant: "success" });
-      void fetchNotes();
     },
-    [enqueueSnackbar, fetchNotes]
+    [enqueueSnackbar]
   );
 
   const createNote = useCallback(
@@ -84,13 +83,14 @@ function useNotes(apiUrl: string): NotesHook {
           { title, content }
         );
         handleSuccessfulOperation("Note created successfully");
+        setNotes([...notes, response.data]);
         return response.data;
       } catch (err) {
         handleError(err as AxiosError);
         throw err;
       }
     },
-    [apiUrl, handleError, handleSuccessfulOperation]
+    [apiUrl, handleError, handleSuccessfulOperation, notes]
   );
 
   const updateNote = useCallback(
@@ -101,13 +101,16 @@ function useNotes(apiUrl: string): NotesHook {
           updatedNote
         );
         handleSuccessfulOperation("Note updated successfully");
+        setNotes(
+          notes.map((note) => (note.id === updatedNote.id ? updatedNote : note))
+        );
         return response.data;
       } catch (err) {
         handleError(err as AxiosError);
         throw err;
       }
     },
-    [apiUrl, handleError, handleSuccessfulOperation]
+    [apiUrl, handleError, handleSuccessfulOperation, notes]
   );
 
   const deleteNote = useCallback(
@@ -115,18 +118,20 @@ function useNotes(apiUrl: string): NotesHook {
       try {
         await axios.delete(`${apiUrl}/notes/${noteId}/delete`);
         handleSuccessfulOperation("Note deleted successfully");
+        setNotes(notes.filter((note) => note.id !== noteId));
       } catch (err) {
         handleError(err as AxiosError);
         throw err;
       }
     },
-    [apiUrl, handleError, handleSuccessfulOperation]
+    [apiUrl, handleError, handleSuccessfulOperation, notes]
   );
 
   const clearNotes = useCallback(async () => {
     try {
       await axios.delete(`${apiUrl}/notes/clear`);
       handleSuccessfulOperation("All notes cleared successfully");
+      setNotes([]);
     } catch (err) {
       handleError(err as AxiosError);
       throw err;
@@ -155,7 +160,6 @@ function useNotes(apiUrl: string): NotesHook {
       if (cancelTokenSourceRef.current) {
         cancelTokenSourceRef.current.cancel();
       }
-      setLoading(false); // Set loading false on unmount
     };
   }, [fetchNotes]);
 
@@ -171,8 +175,8 @@ function useNotes(apiUrl: string): NotesHook {
 
   return {
     notes,
-    loading,
     error,
+    isLoading,
     createNote,
     updateNote,
     deleteNote,

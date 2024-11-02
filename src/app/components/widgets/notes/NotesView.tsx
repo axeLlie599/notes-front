@@ -11,17 +11,14 @@ interface NotesViewProps {
 }
 
 export default function Notes({ notesHook }: NotesViewProps) {
-  if (
-    notesHook.loading ||
-    (!notesHook.loading && notesHook.notes.length === 0)
-  ) {
+  if (notesHook.isLoading) {
     return (
       <Splash classes="notes-loading">
-        <a>Loading...</a>
+        <>Loading...</>
       </Splash>
     );
   }
-  if (notesHook.error && !notesHook.loading) {
+  if (notesHook.error) {
     return (
       <Splash classes="notes-error">
         <Splash.Icon icon="error" />
@@ -43,25 +40,23 @@ export default function Notes({ notesHook }: NotesViewProps) {
       </Splash>
     );
   }
-  if (notesHook.loading) {
-    if (notesHook.notes.length === 0) {
-      return (
-        <Splash classes="no-notes">
-          <Splash.Icon icon="info" iconSet="material-icons-outlined" />
-          <Splash.Title title="No notes" />
-          <Splash.Content>
-            <p>
-              Try to add a new note below. Or click "Add note" floating button
-            </p>
-          </Splash.Content>
-          <FilledButton
-            onClick={() => notesHook.createNote()}
-            tooltip="Create a new note"
-            title="New note"
-          />
-        </Splash>
-      );
-    }
+  if (notesHook.notes.length === 0) {
+    return (
+      <Splash classes="no-notes">
+        <Splash.Icon icon="info" iconSet="material-icons-outlined" />
+        <Splash.Title title="No notes" />
+        <Splash.Content>
+          <p>
+            Try to add a new note below. Or click "Add note" floating button
+          </p>
+        </Splash.Content>
+        <FilledButton
+          onClick={() => notesHook.createNote()}
+          tooltip="Create a new note"
+          title="New note"
+        />
+      </Splash>
+    );
   }
 
   return (
