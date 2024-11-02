@@ -9,3 +9,7 @@
     gap: var(--padding-medium, 16px);
   }
 }
+
+& .Splash:is(.notes-loading) {
+  background-color: rgba(var(--accent), 0.055);
+}

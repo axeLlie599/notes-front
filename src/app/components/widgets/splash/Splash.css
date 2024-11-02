@@ -2,8 +2,10 @@
   --accent-rgb: var(--accent);
   --accent-color: rgba(var(--accent-rgb), 1);
   --color: var(--colors-on-primary, #131313);
-  --background: rgba(var(--accent), 0.055);
-  position: absolute;
+  --content-background: rgba(var(--accent), 0.055);
+  --backround: transparent;
+
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -19,7 +21,7 @@
   border-radius: var(--border-radius, 2rem);
   gap: var(--padding-medium, 16px);
   line-height: 1.5;
-  
+  background-color: var(--background);
 
   & > button {
     width: 100%;
@@ -66,7 +68,7 @@
     gap: var(--padding-medium, 16px);
     border-radius: var(--border-radius, 2rem);
     padding: var(--padding-medium, 16px);
-    background-color: var(--background, #7979792d);
+    background-color: var(--content-background);
     justify-content: center;
     overflow-y: auto;
     min-width: 270px;
