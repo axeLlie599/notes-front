@@ -1,3 +1,5 @@
-API: https://github.com/axeLlie599/notes-api-public
+API: https://github.com/axeLlie599/notes-api-public (deployed on Render)
 
-- So.. this should be the note taking app with sync to simplest api on Python's fastapi, but i am novice in react. And have low skills with design structures. So development too slow...
+- So.. this should be the note taking app with syncing to a simplest api on Python's fastapi. The app in construction
+
+- currently the app in progress of rebuild codebase to using Material you guidelines 
