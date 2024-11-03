@@ -1,5 +1,10 @@
+import FAB from "../../widgets/buttons/fab/FAB";
 import "./Main.css";
 
 export default function Main() {
-  return <div className="Main"></div>;
+  return (
+    <div className="Main">
+      <FAB icon="add" />
+    </div>
+  );
 }

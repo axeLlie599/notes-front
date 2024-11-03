@@ -75,7 +75,7 @@ export default function FAB(props: FABprops) {
           data-tooltip-content={tooltip}
           data-tooltip-place={tooltipPosition}
         >
-          <span className={clsx("Icon", iconSet)}>{icon}</span>
+          <span className={iconSet}>{icon}</span>
           {label && <span className="Label">{label}</span>}
         </Button>
         <Tooltip id="fab_tooltip" className="tooltip" noArrow />
