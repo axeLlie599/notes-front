@@ -15,6 +15,7 @@ export default function Application() {
 
   return (
     <div className="Application wide-screen">
+      Hello
       <Header blur fixed>
         <Header.SectionLeft>
           <span id="app_title">{document.title}</span>
