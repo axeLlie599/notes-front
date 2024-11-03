@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import "./styles/main.css";
-import "./styles/material-icons/material-icons.css";
-
 import useTheme from "./hooks/theme.app";
 
 export default function Application() {
