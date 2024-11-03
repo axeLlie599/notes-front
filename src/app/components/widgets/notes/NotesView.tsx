@@ -11,7 +11,7 @@ interface NotesViewProps {
 }
 
 export default function Notes({ notesHook }: NotesViewProps) {
-  if (!notesHook.isLoading) {
+  if (notesHook.isLoading) {
     return (
       <Splash classes="notes-loading">
         <>Loading...</>
