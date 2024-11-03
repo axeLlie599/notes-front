@@ -1,4 +1,0 @@
-[submodule "api"]
-	path = api
-	url = https://github.com/axeLlie599/notes-api-public
-	branch = feature/api
