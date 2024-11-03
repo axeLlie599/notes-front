@@ -11,12 +11,6 @@ enum FABPosition {
   TopRight = "top-right",
   ScreenCenter = "screen-center",
   BottomCenter = "bottom-center",
-  Custom = "custom",
-}
-
-enum FABExtendedSettings {
-  CenterY = "centerY",
-  CenterX = "centerX",
 }
 
 enum FABSize {
@@ -37,7 +31,7 @@ interface FABprops {
   hidden?: boolean;
   tooltip?: string;
   tooltipPosition?: PlacesType;
-  castShadow?: boolean;
+  hasShadow?: boolean;
   pos?: FABPosition;
 }
 
@@ -56,8 +50,8 @@ export default function FAB(props: FABprops) {
     tooltip = undefined,
     tooltipPosition = "top",
     pos = FABPosition.RightBottom,
-    castShadow = false,
-  } = props;
+    hasShadow = false,
+  } = props || {};
 
   const FABTemplate = useMemo(() => {
     const fabClasses = clsx(
@@ -66,8 +60,7 @@ export default function FAB(props: FABprops) {
       size,
       pos,
       debugOutline && "outline",
-      label && "extended",
-      castShadow && "shadow"
+      hasShadow && "shadow"
     );
 
     return (
@@ -89,7 +82,7 @@ export default function FAB(props: FABprops) {
       </>
     );
   }, [
-    castShadow,
+    hasShadow,
     classes,
     debugOutline,
     disabled,
@@ -108,7 +101,6 @@ export default function FAB(props: FABprops) {
   return FABTemplate;
 }
 
-FAB.Extended = FABExtendedSettings;
 FAB.Medium = FABSize.Medium;
 FAB.Large = FABSize.Large;
 FAB.Position = FABPosition;
