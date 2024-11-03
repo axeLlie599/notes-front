@@ -1,52 +1,20 @@
 @import "./utils";
 
 :root {
-  --colors-primary: #ececec;
-  --colors-on-primary: #131313;
-  --accent: 98, 163, 142;
-  --icon-size: 24px;
-  --header-bg-color: #7a7a7a00;
-  --padding-large: 24px;
-  --padding-medium: 16px;
-  --padding-small: 8px;
-  --padding-extra-small: 4px;
-  --border-radius: 2rem;
-  --border-bg: #7979793f;
-  --blur-radius: 10px;
-  --header-height: 5rem;
-  --values-border-rounded: 2rem;
-  --tooltip-bg-color: #e9e9e9;
-
-  @media (max-width: 768px) {
-    --header-height: 4.334rem;
-  }
+  --colors-primary: white;
+  --colors-on-primary: black;
   &:is(.dark) {
-    --colors-primary: #212121;
-    --colors-on-primary: #e9e9e9;
-    --header-bg-color: #7a7a7a00;
-    --tooltip-bg-color: #181818;
+    --colors-primary: black;
+    --colors-on-primary: white;
   }
 }
 
 *,
 ::after,
 ::before {
-  position: relative;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui;
-  &:is(.tooltip) {
-    font-weight: 600;
-    font-size: 0.82rem;
-    color: var(--colors-on-primary);
-    border-radius: var(--values-border-rounded);
-    background-color: var(--tooltip-bg-color);
-    border: var(--border);
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.055),
-      0 1px 2px rgba(0, 0, 0, 0.055);
-  }
 }
 
 body {
@@ -59,13 +27,4 @@ body {
   height: 100%;
   background-color: var(--colors-primary);
   color: var(--colors-on-primary);
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-header.Header {
-  & #app_title {
-    font-size: 20pt;
-    font-weight: 400;
-  }
 }
