@@ -1,9 +1,9 @@
 .Header {
-  --header-height: 4.2rem;
+  --header-height: 4rem;
   border-radius: var(--md-sys-shape-shape-none);
-  background-color: var(--md-sys-color-surface);
+  background-color: var(--md-sys-color-surface-container);
   height: var(--header-height);
-  padding: 0 1rem;
+  padding: 0 var(--md-sys-padding-medium);
   color: var(--md-sys-color-on-surface);
   width: 100%;
   display: flex;
@@ -28,16 +28,16 @@
       justify-content: flex-end;
       & > *:not(:first-child),
       & > *:not(:last-child) {
-        margin-left: 1.5rem;
+        margin-left: var(--md-sys-padding-large);
       }
     }
   }
 
   & section > .headline {
+    --text-size: 22pt;
     width: auto;
     height: auto;
     line-height: 28pt;
-    font-size: 22pt;
-    font-weight: 500;
+    font-size: var(--text-size);
   }
 }

@@ -1,0 +1,9 @@
+.Main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--md-sys-color-surface);
+  overflow-y: auto;
+  padding: var(--md-sys-padding-medium);
+  color: var(--md-sys-color-on-surface);
+}

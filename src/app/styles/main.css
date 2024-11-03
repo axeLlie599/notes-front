@@ -1,28 +1,50 @@
 @import "./material-theme/light";
 @import "./material-theme/dark";
 @import "./material-theme/values";
+@import "../assets/fonts/material-icons/material-icons";
+@import "../assets/fonts/Roboto/roboto";
 
 *,
-*::before,
-*::after {
+*:before,
+*:after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   line-height: 1.5;
-  font-family: system-ui;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  font-size: 1rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  &:is(.tooltip) {
+    background-color: var(--md-sys-color-on-tertiary);
+    border-radius: var(--md-sys-values-shape-full);
+  }
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: 1;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 #root {
   height: 100%;
   width: 100%;
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-background);
 }
