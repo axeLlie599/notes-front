@@ -37,8 +37,8 @@ interface FABprops {
 
 export default function FAB(props: FABprops) {
   const {
-    label = undefined,
-    title = undefined,
+    label = null,
+    title = null,
     onClick = () => {},
     icon,
     iconSet = "material-icons",
@@ -47,7 +47,7 @@ export default function FAB(props: FABprops) {
     size = FABSize.Medium,
     disabled = false,
     hidden = false,
-    tooltip = undefined,
+    tooltip = null,
     tooltipPosition = "top",
     pos = FABPosition.RightBottom,
     hasShadow = false,
@@ -70,7 +70,7 @@ export default function FAB(props: FABprops) {
           disabled={disabled}
           hidden={hidden}
           onClick={onClick}
-          title={title}
+          title={title || undefined}
           data-tooltip-id="fab_tooltip"
           data-tooltip-content={tooltip}
           data-tooltip-place={tooltipPosition}
