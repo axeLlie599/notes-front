@@ -1,21 +1,23 @@
 .IconButton {
-  --ib-size: 2.5rem;
-  --ib-i-size: 1.5rem;
+  --ib-size: 2rem;
+  --ib-i-size: calc(var(--ib-size) / 1.5);
+  position: relative;
   display: inline-flex;
-  flex-wrap: 1;
-  align-items: center;
-  justify-content: center;
   min-height: var(--ib-size);
   min-width: var(--ib-size);
-  border-radius: var(--md-sys-values-shape-full);
-  color: var(--md-sys-color-on-surface-variant);
-  border: none;
-  margin: 0;
-  padding: 0;
-  & > * {
-    font-size: var(--ib-i-size);
-    width: 100%;
-    height: 100%;
-  }
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
+  border: none;
+  border-radius: var(--md-sys-values-shape-full);
+  transition: opacity 0.2s ease-in-out;
+  & .icon {
+    padding: 0;
+    margin: 0;
+    font-size: var(--ib-i-size);
+    color: var(--md-sys-color-on-surface-variant);
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

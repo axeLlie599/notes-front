@@ -23,7 +23,7 @@ Splash.Icon = ({
 }: {
   icon?: string;
   iconSet?: string;
-}) => <section className={clsx("icon", iconSet)}>{icon}</section>;
+}) => <span className={clsx("icon", iconSet)}>{icon}</span>;
 
 Splash.Title = ({ title = "Please provide title" }: { title?: string }) => (
   <span className="title">{title}</span>
@@ -33,4 +33,4 @@ Splash.Content = ({
   children = <a>Please provide any element or text here</a>,
 }: {
   children?: React.ReactNode;
-}) => <section className="content">{children}</section>;
+}) => <span className="content">{children}</span>;

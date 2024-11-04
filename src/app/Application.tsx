@@ -5,10 +5,11 @@ import IconButton from "./components/widgets/buttons/icon-button/IconButton";
 //import useNotes from "./hooks/notes.api";
 import Header from "./components/general/header/Header";
 import Main from "./components/general/main/Main";
+import useNotes from "./hooks/notes.api";
 
 export default function Application() {
   const themeHook = useTheme({ enabled: true });
-  //const notesHook = useNotes("https://notes-api-qvr8.onrender.com");
+  const notesHook = useNotes("https://notes-api-qvr8.onrender.com");
 
   return (
     <div className="Application">
@@ -17,16 +18,17 @@ export default function Application() {
           <span className="headline">Notes</span>
         </Header.SectionLeft>
         <Header.SectionRight>
-          <IconButton icon="clear_all" />
+          <IconButton icon="clear_all" tooltipLabel="Clear notes" />
           <IconButton
             icon={
               themeHook.currentTheme === "dark" ? "light_mode" : "dark_mode"
             }
             onClick={themeHook.toggle}
+            tooltipPosition="left"
           />
         </Header.SectionRight>
       </Header>
-      <Main />
+      <Main notesHook={notesHook} />
     </div>
   );
 }

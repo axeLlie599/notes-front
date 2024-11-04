@@ -3,7 +3,6 @@
   border-radius: var(--md-sys-shape-shape-none);
   background-color: var(--md-sys-color-surface-container);
   height: var(--header-height);
-  padding: 0 var(--md-sys-padding-medium);
   color: var(--md-sys-color-on-surface);
   width: 100%;
   display: flex;
@@ -17,6 +16,7 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
+    padding: 0 var(--md-sys-padding-medium);
     height: 100%;
     &.left {
       justify-content: flex-start;
@@ -26,10 +26,7 @@
     }
     &.right {
       justify-content: flex-end;
-      & > *:not(:first-child),
-      & > *:not(:last-child) {
-        margin-left: var(--md-sys-padding-large);
-      }
+      gap: var(--md-sys-padding-medium);
     }
   }
 
