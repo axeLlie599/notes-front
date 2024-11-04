@@ -28,6 +28,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   &:is(.tooltip) {
+    opacity: 1;
     background-color: var(--md-sys-color-secondary-container);
     color: var(--md-sys-color-on-secondary-container);
     border-radius: var(--md-sys-values-shape-full);
@@ -48,4 +49,5 @@ body {
   width: 100%;
   background-color: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-background);
+  overflow: hidden;
 }
