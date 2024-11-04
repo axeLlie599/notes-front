@@ -13,7 +13,7 @@ interface NotesViewProps {
 export default function Notes({ notesHook }: NotesViewProps) {
   if (!notesHook) {
     return (
-      <Splash>
+      <Splash classes="error">
         <Splash.Title title="Please provide Notes Hook" />
       </Splash>
     );
@@ -21,13 +21,13 @@ export default function Notes({ notesHook }: NotesViewProps) {
   if (notesHook.isLoading) {
     return (
       <Splash classes="notes-loading">
-        <>Loading...</>
+        <Splash.Title title="Loading..." />
       </Splash>
     );
   }
   if (notesHook.error) {
     return (
-      <Splash classes="notes-error">
+      <Splash classes="error">
         <Splash.Icon icon="public_off" />
         <Splash.Title title="Error" />
         <Splash.Content>
