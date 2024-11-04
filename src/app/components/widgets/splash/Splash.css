@@ -14,16 +14,44 @@
   background-color: var(--md-sys-color-surface-container);
   align-items: center;
   z-index: 9999;
-  & .icon {
-    font-size: 6rem;
-    color: var(--md-sys-color-on-tertiary-fixed-variant);
+  &.error {
+    color: var(--md-sys-color-on-error-container);
+    background-color: var(--md-sys-color-error-container);
+    & .icon {
+      color: var(--md-sys-color-on-error-container);
+    }
+    & .content {
+      background-color: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-error);
+    }
   }
+  & .icon {
+    opacity: 0.3;
+    font-size: 7.6rem;
+    color: var(--md-sys-color-primary-container);
+    font-weight: 100;
+  }
+
+  & .title {
+    font-size: 1.8rem;
+    font-weight: 550;
+  }
+
+  & .content {
+    font-size: 1.4rem;
+    border-radius: var(--md-sys-values-shape-large);
+    background-color: var(--md-sys-color-surface-container-high);
+    padding: var(--md-sys-padding-medium);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
   & > section {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     align-items: center;
+    padding: var(--md-sys-padding-medium);
   }
   & > button {
     width: 100%;
