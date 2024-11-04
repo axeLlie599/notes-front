@@ -83,11 +83,10 @@ export default function Notes({ notesHook }: NotesViewProps) {
         <Splash.Icon icon="info" iconSet="material-icons-outlined" />
         <Splash.Title title="No notes" />
         <Splash.Content>
-          <Markdown
-            children={`
-          You don't have any notes yet.
-          Create a new one using the button below`}
-          />
+          <p>
+            You don't have any note here <br />
+            So, add new one below
+          </p>
         </Splash.Content>
         <FilledButton
           onClick={() => notesHook.createNote()}
@@ -120,21 +119,22 @@ export default function Notes({ notesHook }: NotesViewProps) {
         </Dialog>
         <ul className="list-view">
           {notesHook.notes.map((note: Note) => (
-            <li
-              key={note.id}
-              className={clsx("note", `note-${note.id}`)}
-              onClick={() => setEditMode(true)}
-            >
+            <li key={note.id} className={clsx("note", `note-${note.id}`)}>
               <section className="header">
-                <span className="title">{note.title}</span>
-                <span className="items">
+                <span className="title" onClick={() => setEditMode(true)}>
+                  {note.title}
+                </span>
+                <span className="items" onMouseDown={(e) => e.preventDefault()}>
                   <IconButton
                     icon="delete"
-                    onClick={() => notesHook.deleteNote(note.id!)}
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.stopPropagation();
+                      notesHook.deleteNote(note.id!);
+                    }}
                   />
                 </span>
               </section>
-              <section className="content">
+              <section className="content" onClick={() => setEditMode(true)}>
                 <Markdown>{note.content}</Markdown>
               </section>
             </li>

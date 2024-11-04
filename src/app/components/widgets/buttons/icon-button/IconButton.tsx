@@ -11,7 +11,7 @@ interface IconButtonProps {
   classes?: string;
   hasBackground?: boolean;
   type?: "button" | "submit" | "reset";
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   id?: string;
 }
