@@ -18,7 +18,17 @@ export default function Application() {
           <span className="headline">Notes</span>
         </Header.SectionLeft>
         <Header.SectionRight>
-          <IconButton icon="clear_all" tooltipLabel="Clear notes" />
+          <IconButton
+            icon="clear_all"
+            tooltipLabel="Clear notes"
+            disabled={
+              notesHook.notes.length === 0 ||
+              notesHook.isLoading ||
+              notesHook.error
+                ? true
+                : false
+            }
+          />
           <IconButton
             icon={
               themeHook.currentTheme === "dark" ? "light_mode" : "dark_mode"
