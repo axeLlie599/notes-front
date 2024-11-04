@@ -4,49 +4,16 @@ import "./Header.css";
 import React from "react";
 
 interface HeaderProps {
-  blur?: boolean;
-  customChildren?: boolean;
   classes?: string;
   id?: string;
   children?: React.ReactNode;
-  shadow?: boolean;
-  wide?: boolean;
-  debugOutline?: boolean;
   fixed?: boolean;
 }
 
-const Header = ({
-  blur = false,
-  customChildren,
-  children,
-  shadow = false,
-  classes,
-  id,
-  wide = true,
-  debugOutline,
-  fixed = false,
-}: HeaderProps) => {
+const Header = ({ children, classes, id, fixed = false }: HeaderProps) => {
   return (
-    <header
-      className={clsx(
-        "Header",
-        classes,
-        blur && "blurred",
-        shadow && "shadow",
-        debugOutline && "outline",
-        fixed && "fixed"
-      )}
-      id={id}
-    >
-      <div
-        className={clsx(
-          "container",
-          wide && "wide",
-          !customChildren && "with-sections"
-        )}
-      >
-        {children}
-      </div>
+    <header className={clsx("Header", classes, fixed && "fixed")} id={id}>
+      {children}
     </header>
   );
 };

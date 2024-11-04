@@ -19,7 +19,7 @@ export default function IconButton({
   icon,
   iconSet = "material-icons-outlined",
   classes,
-  tooltipLabel = "Click me!",
+  tooltipLabel,
   tooltipPosition = "bottom",
   hasBackground = false,
   type = "button",
@@ -38,7 +38,7 @@ export default function IconButton({
         onMouseLeave={(e) => e.currentTarget.blur()}
         disabled={disabled}
       >
-        <span className={iconSet}>{icon} </span>
+        <span className={clsx("icon", iconSet)}>{icon}</span>
       </Button>
       <Tooltip id="icon_button_tooltip" className="tooltip" noArrow />
     </>

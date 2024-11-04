@@ -7,21 +7,29 @@ import Markdown from "react-markdown";
 import "./NotesView.css";
 
 interface NotesViewProps {
-  notesHook: NotesHook;
+  notesHook?: NotesHook;
 }
 
 export default function Notes({ notesHook }: NotesViewProps) {
+  if (!notesHook) {
+    return (
+      <Splash classes="error">
+        <Splash.Title title="Please provide Notes Hook" />
+      </Splash>
+    );
+  }
+
   if (notesHook.isLoading) {
     return (
       <Splash classes="notes-loading">
-        <>Loading...</>
+        <Splash.Title title="Loading..." />
       </Splash>
     );
   }
   if (notesHook.error) {
     return (
-      <Splash classes="notes-error">
-        <Splash.Icon icon="error" />
+      <Splash classes="error">
+        <Splash.Icon icon="public_off" />
         <Splash.Title title="Error" />
         <Splash.Content>
           <span className="error_details">

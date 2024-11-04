@@ -1,0 +1,11 @@
+:root {
+  --md-sys-values-shape-full: 4rem;
+  --md-sys-values-shape-extra-large: 2.25rem;
+  --md-sys-values-shape-large: 2rem;
+  --md-sys-values-shape-medium: 1.75rem;
+  --md-sys-values-shape-small: 1.5rem;
+  --md-sys-values-shape-extra-small: 1rem;
+  --md-sys-shape-shape-none: 0rem;
+  --md-sys-padding-medium: 1rem;
+  --md-sys-padding-large: 1.5rem;
+}

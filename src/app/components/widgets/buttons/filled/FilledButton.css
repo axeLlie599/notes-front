@@ -1,25 +1,14 @@
 .FilledButton {
-  --bg-color: rgba(var(--accent), 1);
-  --text-color: white;
-  --max-height: 40px;
-  --b-radius: var(--border-radius, 2rem);
-
   display: inline-flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  outline: none;
-  border: none;
-  height: 100%;
-  max-height: var(--max-height);
-  width: auto;
-  border-radius: var(--b-radius);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-size: 12pt;
-  padding: var(--padding-medium, 16px) var(--padding-medium, 16px);
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  padding: calc(var(--md-sys-padding-medium) / 2) var(--md-sys-padding-medium);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--md-sys-values-shape-full);
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-inverse-on-surface);
+  border: unset;
+  font-size: inherit;
+  font-weight: 550;
 }

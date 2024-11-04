@@ -11,12 +11,6 @@ enum FABPosition {
   TopRight = "top-right",
   ScreenCenter = "screen-center",
   BottomCenter = "bottom-center",
-  Custom = "custom",
-}
-
-enum FABExtendedSettings {
-  CenterY = "centerY",
-  CenterX = "centerX",
 }
 
 enum FABSize {
@@ -37,14 +31,14 @@ interface FABprops {
   hidden?: boolean;
   tooltip?: string;
   tooltipPosition?: PlacesType;
-  castShadow?: boolean;
+  hasShadow?: boolean;
   pos?: FABPosition;
 }
 
 export default function FAB(props: FABprops) {
   const {
-    label = undefined,
-    title = undefined,
+    label = null,
+    title = null,
     onClick = () => {},
     icon,
     iconSet = "material-icons",
@@ -53,11 +47,11 @@ export default function FAB(props: FABprops) {
     size = FABSize.Medium,
     disabled = false,
     hidden = false,
-    tooltip = undefined,
+    tooltip = null,
     tooltipPosition = "top",
     pos = FABPosition.RightBottom,
-    castShadow = false,
-  } = props;
+    hasShadow = false,
+  } = props || {};
 
   const FABTemplate = useMemo(() => {
     const fabClasses = clsx(
@@ -66,8 +60,7 @@ export default function FAB(props: FABprops) {
       size,
       pos,
       debugOutline && "outline",
-      label && "extended",
-      castShadow && "shadow"
+      hasShadow && "shadow"
     );
 
     return (
@@ -77,19 +70,19 @@ export default function FAB(props: FABprops) {
           disabled={disabled}
           hidden={hidden}
           onClick={onClick}
-          title={title}
+          title={title || undefined}
           data-tooltip-id="fab_tooltip"
-          data-tooltip-content={tooltip}
+          data-tooltip-content={tooltip && !disabled ? tooltip : null}
           data-tooltip-place={tooltipPosition}
         >
-          <span className={clsx("Icon", iconSet)}>{icon}</span>
+          <span className={iconSet}>{icon}</span>
           {label && <span className="Label">{label}</span>}
         </Button>
         <Tooltip id="fab_tooltip" className="tooltip" noArrow />
       </>
     );
   }, [
-    castShadow,
+    hasShadow,
     classes,
     debugOutline,
     disabled,
@@ -108,7 +101,6 @@ export default function FAB(props: FABprops) {
   return FABTemplate;
 }
 
-FAB.Extended = FABExtendedSettings;
 FAB.Medium = FABSize.Medium;
 FAB.Large = FABSize.Large;
 FAB.Position = FABPosition;
