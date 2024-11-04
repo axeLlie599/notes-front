@@ -13,6 +13,7 @@ interface IconButtonProps {
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
   disabled?: boolean;
+  id?: string;
 }
 
 export default function IconButton({
@@ -25,6 +26,7 @@ export default function IconButton({
   type = "button",
   disabled = false,
   onClick,
+  id,
 }: IconButtonProps) {
   return (
     <>
@@ -37,6 +39,7 @@ export default function IconButton({
         data-tooltip-place={tooltipPosition}
         onMouseLeave={(e) => e.currentTarget.blur()}
         disabled={disabled}
+        id={id}
       >
         <span className={clsx("icon", iconSet)}>{icon}</span>
       </Button>

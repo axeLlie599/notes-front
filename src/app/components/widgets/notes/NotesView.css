@@ -1,0 +1,35 @@
+*:is(.notes-loading) {
+  opacity: 0.6;
+  & .title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: monospace;
+  }
+  & .title:after {
+    content: "";
+    display: inline-block;
+    width: 1.3rem;
+    text-align: left;
+    animation: dots-end 1.5s infinite;
+  }
+  @media (max-width: 768px) {
+    width: auto;
+    height: auto;
+  }
+}
+
+@keyframes dots-end {
+  0%,
+  100% {
+    content: "";
+  }
+  20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: "...";
+  }
+}

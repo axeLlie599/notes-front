@@ -15,7 +15,7 @@ export default function Application() {
     <div className="Application">
       <Header>
         <Header.SectionLeft>
-          <span className="headline">Notes</span>
+          <span className="headline">{document.title}</span>
         </Header.SectionLeft>
         <Header.SectionRight>
           <IconButton
@@ -35,6 +35,7 @@ export default function Application() {
             }
             onClick={themeHook.toggle}
             tooltipPosition="left"
+            classes="theme-switch"
           />
         </Header.SectionRight>
       </Header>

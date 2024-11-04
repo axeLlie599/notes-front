@@ -32,6 +32,15 @@
     background-color: var(--md-sys-color-secondary-container);
     color: var(--md-sys-color-on-secondary-container);
     border-radius: var(--md-sys-values-shape-full);
+    z-index: 100;
+  }
+  &:has(.splash-overlay) .theme-switch,
+  .splash-overlay + * .theme-switch,
+  .splash-overlay ~ * .theme-switch,
+  &:has(.splash-overlay) .headline,
+  .splash-overlay + * .headline,
+  .splash-overlay ~ * .headline {
+    z-index: 13;
   }
 }
 

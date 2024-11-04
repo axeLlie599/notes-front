@@ -9,11 +9,11 @@ interface SplashProps {
 
 export default function Splash(props: SplashProps) {
   return (
-    <>
+    <div className="splash-overlay">
       <div className={clsx("Splash", props.classes)}>
         {props.children || <></>}
       </div>
-    </>
+    </div>
   );
 }
 
