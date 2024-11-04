@@ -6,7 +6,6 @@
   width: 100%;
   height: 100%;
   background-color: var(--md-sys-color-surface);
-  overflow-y: auto;
-  padding: var(--md-sys-padding-medium);
+
   color: var(--md-sys-color-on-surface);
 }
