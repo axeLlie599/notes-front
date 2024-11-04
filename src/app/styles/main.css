@@ -28,7 +28,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   &:is(.tooltip) {
-    background-color: var(--md-sys-color-on-tertiary);
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
     border-radius: var(--md-sys-values-shape-full);
   }
 }

@@ -4,7 +4,7 @@ import "./Main.css";
 export default function Main() {
   return (
     <div className="Main">
-      <FAB icon="add" />
+      <FAB icon="add" tooltip="Add note" tooltipPosition="top" />
     </div>
   );
 }

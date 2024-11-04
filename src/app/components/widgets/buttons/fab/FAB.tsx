@@ -72,7 +72,7 @@ export default function FAB(props: FABprops) {
           onClick={onClick}
           title={title || undefined}
           data-tooltip-id="fab_tooltip"
-          data-tooltip-content={tooltip}
+          data-tooltip-content={tooltip && !disabled ? tooltip : null}
           data-tooltip-place={tooltipPosition}
         >
           <span className={iconSet}>{icon}</span>
