@@ -18,6 +18,7 @@ export default function Notes({ notesHook }: NotesViewProps) {
       </Splash>
     );
   }
+
   if (notesHook.isLoading) {
     return (
       <Splash classes="notes-loading">
