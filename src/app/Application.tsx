@@ -28,6 +28,7 @@ export default function Application() {
                 ? true
                 : false
             }
+            onClick={notesHook.clearNotes}
           />
           <IconButton
             icon={

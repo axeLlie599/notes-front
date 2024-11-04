@@ -42,6 +42,16 @@
   .splash-overlay ~ * .headline {
     z-index: 13;
   }
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: --md-sys-values-shape-full;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #7c7c7c13;
+    border-radius: var(--md-sys-values-shape-full);
+  }
 }
 
 body {

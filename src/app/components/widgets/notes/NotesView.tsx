@@ -5,28 +5,58 @@ import Splash from "../splash/Splash";
 import IconButton from "../buttons/icon-button/IconButton";
 import Markdown from "react-markdown";
 import "./NotesView.css";
+import { useEffect, useState } from "react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 
 interface NotesViewProps {
   notesHook?: NotesHook;
 }
 
 export default function Notes({ notesHook }: NotesViewProps) {
+  const [connected, setConnected] = useState(navigator.onLine);
+  const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    const updateConnectionStatus = () => {
+      const online = navigator.onLine;
+      if (online === false) {
+        setEditMode(false); // Prevent errors depending of index of note, in case that the note not found
+      }
+      setConnected(online);
+      if (online && notesHook) {
+        notesHook.refetch();
+      }
+    };
+
+    const intervalId = setInterval(() => {
+      if (!navigator.onLine && notesHook) {
+        notesHook.refetch();
+      }
+    }, 3000);
+
+    window.addEventListener("online", updateConnectionStatus);
+    window.addEventListener("offline", updateConnectionStatus);
+
+    return () => {
+      window.removeEventListener("online", updateConnectionStatus);
+      window.removeEventListener("offline", updateConnectionStatus);
+      clearInterval(intervalId);
+    };
+  }, [notesHook]);
+
   if (!notesHook) {
     return (
       <Splash classes="error">
         <Splash.Title title="Please provide Notes Hook" />
       </Splash>
     );
-  }
-
-  if (notesHook.isLoading) {
+  } else if (notesHook.isLoading && !notesHook.error) {
     return (
       <Splash classes="notes-loading">
         <Splash.Title title="Loading" />
       </Splash>
     );
-  }
-  if (notesHook.error) {
+  } else if (notesHook.error && !connected) {
     return (
       <Splash classes="error">
         <Splash.Icon icon="public_off" />
@@ -47,16 +77,17 @@ export default function Notes({ notesHook }: NotesViewProps) {
         />
       </Splash>
     );
-  }
-  if (notesHook.notes.length === 0) {
+  } else if (notesHook.notes.length === 0) {
     return (
       <Splash classes="no-notes">
         <Splash.Icon icon="info" iconSet="material-icons-outlined" />
         <Splash.Title title="No notes" />
         <Splash.Content>
-          <p>
-            Try to add a new note below. Or click "Add note" floating button
-          </p>
+          <Markdown
+            children={`
+          You don't have any notes yet.
+          Create a new one using the button below`}
+          />
         </Splash.Content>
         <FilledButton
           onClick={() => notesHook.createNote()}
@@ -65,30 +96,51 @@ export default function Notes({ notesHook }: NotesViewProps) {
         />
       </Splash>
     );
-  }
-
-  return (
-    <div className="Notes wide-screen">
-      <ul className="list-view">
-        {notesHook.notes.map((note: Note) => (
-          <li key={note.id} className={clsx("list-item", `note-${note.id}`)}>
-            <div className="note">
-              <span className="header">
-                <section className="title">{note.title}</section>
-                <section className="items">
+  } else {
+    return (
+      <div className="Notes">
+        <Dialog
+          open={editMode}
+          onClose={() => setEditMode(false)}
+          className="EditDialog"
+        >
+          <div className="overlay">
+            <DialogPanel className="dialog">
+              <section className="header">
+                <span className="title">Edit note</span>
+                <span className="items">
+                  <IconButton icon="close" onClick={() => setEditMode(false)} />
+                </span>
+              </section>
+              <section className="content">
+                <Markdown>{"Not implemented yet"}</Markdown>
+              </section>
+            </DialogPanel>
+          </div>
+        </Dialog>
+        <ul className="list-view">
+          {notesHook.notes.map((note: Note) => (
+            <li
+              key={note.id}
+              className={clsx("note", `note-${note.id}`)}
+              onClick={() => setEditMode(true)}
+            >
+              <section className="header">
+                <span className="title">{note.title}</span>
+                <span className="items">
                   <IconButton
                     icon="delete"
                     onClick={() => notesHook.deleteNote(note.id!)}
                   />
-                </section>
-              </span>
-              <span className="content">
+                </span>
+              </section>
+              <section className="content">
                 <Markdown>{note.content}</Markdown>
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+              </section>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }

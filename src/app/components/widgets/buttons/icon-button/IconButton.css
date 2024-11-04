@@ -1,6 +1,6 @@
 .IconButton {
   --ib-size: 2rem;
-  --ib-i-size: calc(var(--ib-size) / 1.5);
+  --ib-i-size: calc(var(--ib-size) / 1.4);
   position: relative;
   display: inline-flex;
   min-height: var(--ib-size);
