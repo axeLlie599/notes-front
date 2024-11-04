@@ -11,4 +11,9 @@
   border: unset;
   font-size: inherit;
   font-weight: 550;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: var(--md-sys-color-surface-container-highest);
+    color: var(--md-sys-color-on-surface);
+  }
 }

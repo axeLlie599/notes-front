@@ -50,17 +50,26 @@
   }
 
   & .content {
+    display: flex;
+    flex-direction: column;
     font-size: 1.4rem;
     border-radius: var(--md-sys-values-shape-large);
     background-color: var(--md-sys-color-surface-container-high);
     padding: var(--md-sys-padding-medium);
     color: var(--md-sys-color-on-surface-variant);
+    align-items: center;
+    justify-content: center;
+    width: 96%;
+    height: auto;
+    & > * {
+      width: 100%;
+    }
   }
 
   & > section {
     display: flex;
     flex-direction: column;
-    min-width: 100%;
+    width: 100%;
     height: 100%;
     align-items: center;
     padding: var(--md-sys-padding-medium);
