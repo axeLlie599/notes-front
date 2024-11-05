@@ -22,7 +22,7 @@ export type NotesHook = {
   refetch: () => Promise<void>;
 };
 
-const HEARTBEAT_INTERVAL = TimeUnits.Minute;
+const HEARTBEAT_INTERVAL = TimeUnits.Minute / 2;
 
 function useNotes(apiUrl: string): NotesHook {
   const { enqueueSnackbar } = useSnackbar();
