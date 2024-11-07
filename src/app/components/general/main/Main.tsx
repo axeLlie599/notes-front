@@ -11,7 +11,7 @@ export default function Main({ notesHook }: { notesHook: NotesHook }) {
         icon="add"
         tooltip="Add note"
         tooltipPosition="top"
-        disabled={notesHook?.isLoading || notesHook?.error ? true : false}
+        disabled={notesHook.isLoading || notesHook.error ? true : false}
         onClick={() => notesHook?.createNote()}
       />
     </div>
