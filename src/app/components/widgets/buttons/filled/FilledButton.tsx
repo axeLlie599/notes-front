@@ -12,6 +12,7 @@ interface FilledButtonProps {
   classes?: string;
   tooltip?: string;
   tooltipPosition?: PlacesType;
+  type?: "button" | "submit" | "reset";
 }
 
 export default function FilledButton({
@@ -22,10 +23,12 @@ export default function FilledButton({
   classes,
   pastelColor = false,
   title = "Filled Button",
+  type = "button",
 }: FilledButtonProps) {
   return (
     <>
       <Button
+        type={type}
         disabled={disabled}
         onClick={onClick}
         className={clsx("FilledButton", pastelColor && "pastel", classes)}

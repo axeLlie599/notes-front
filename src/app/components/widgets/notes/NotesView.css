@@ -18,6 +18,7 @@
     padding-bottom: calc(var(--md-sys-padding-large) * 6);
     overflow-y: auto;
     & li.note {
+      position: relative;
       width: 100%;
       height: 100%;
       min-height: var(--item-size);
@@ -28,6 +29,27 @@
       background-color: var(--md-sys-color-surface-container-low);
       border-radius: var(--md-sys-values-shape-extra-large);
       border: 1px solid var(--md-sys-color-outline-variant);
+      & .overlay {
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--md-sys-values-shape-extra-large);
+        font-weight: lighter;
+        & button {
+          position: absolute;
+          top: var(--md-sys-padding-medium);
+          right: var(--md-sys-padding-medium);
+        }
+        & p {
+          font-size: 13pt;
+          border-radius: var(--md-sys-values-shape-extra-large);
+          background-color: var(--md-sys-color-surface-container);
+          padding: var(--md-sys-padding-medium);
+        }
+      }
       &:hover {
         & .header .items {
           opacity: 1;
@@ -73,14 +95,23 @@
 }
 
 /*---- Animation ----*/
-*:is(.notes-loading) {
-  & .title {
-    font-size: 1.2rem;
-    font-weight: 500;
-    font-family: monospace;
-  }
-  & .title:after {
-    content: "";
+.Notes span.notes-loading {
+  position: absolute;
+  bottom: var(--md-sys-padding-medium);
+  left: var(--md-sys-padding-medium);
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: monospace;
+  border-radius: var(--md-sys-values-shape-extra-large);
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  padding: var(--md-sys-padding-medium);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  z-index: 10;
+
+  &:after {
+    content: " ";
     display: inline-block;
     text-align: left;
     animation: dots-end 2s infinite;
@@ -94,16 +125,16 @@
 @keyframes dots-end {
   0%,
   100% {
-    content: "";
+    content: " ";
   }
   20% {
-    content: ".";
+    content: " .";
   }
   40% {
-    content: "..";
+    content: " ..";
   }
   60% {
-    content: "...";
+    content: " ...";
   }
 }
 
@@ -120,11 +151,10 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #00000025;
-    backdrop-filter: blur(10px);
+    background-color: #0000009a;
     @media (max-width: 768px) {
       justify-content: flex-end;
-      padding-bottom: 1.5rem;
+      padding-bottom: 1rem;
     }
     & .dialog {
       position: relative;
@@ -150,7 +180,7 @@
         width: 100%;
         height: 100%;
         max-height: 4rem;
-        padding: var(--md-sys-padding-medium);
+        padding: var(--md-sys-padding-large);
       }
 
       & .content {
@@ -161,7 +191,60 @@
         width: 100%;
         height: 100%;
         margin-top: 4rem;
-        padding: var(--md-sys-padding-medium);
+        padding: var(--md-sys-padding-large);
+      }
+
+      & .title {
+        font-weight: 550;
+        font-size: 15pt;
+      }
+
+      & form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        gap: var(--md-sys-padding-large);
+        & > *:not(.tooltip) {
+          width: 100%;
+        }
+        & input,
+        textarea {
+          resize: none;
+          border-radius: var(--md-sys-values-shape-extra-large);
+          padding: var(--md-sys-padding-medium);
+          outline: none;
+          border: none;
+          background-color: var(--md-sys-color-surface-container-high);
+          color: var(--md-sys-color-on-surface-variant);
+          width: auto;
+          height: auto;
+          min-width: 20rem;
+          max-width: 28rem;
+          font-size: inherit;
+          transition: box-shadow 0.3s ease-out;
+          &:hover {
+            box-shadow:
+              0px 0px 2px rgba(0, 0, 0, 0.14),
+              0px 2px 2px rgba(0, 0, 0, 0.12),
+              0px 3px 3px rgba(0, 0, 0, 0.2);
+          }
+        }
+        & textarea {
+          max-height: 30rem;
+          min-height: 10rem;
+          font-family: monospace;
+          resize: both;
+          @media (max-width: 768px) {
+            min-width: 100%;
+            height: auto;
+            max-height: 20rem;
+            resize: vertical;
+          }
+        }
       }
     }
   }
