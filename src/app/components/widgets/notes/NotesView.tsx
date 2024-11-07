@@ -25,7 +25,7 @@ export default function Notes(props: { notesHook: NotesHook }) {
       return (
         <ul>
           {props.notesHook.notes.map((note) => (
-            <NoteItem note={note} hooks={hooks} />
+            <NoteItem key={note.id} note={note} hooks={hooks} />
           ))}
         </ul>
       );
