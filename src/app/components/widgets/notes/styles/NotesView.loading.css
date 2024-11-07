@@ -1,0 +1,42 @@
+.notes-loading {
+  position: absolute;
+  bottom: var(--md-sys-padding-medium);
+  left: var(--md-sys-padding-medium);
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: monospace;
+  border-radius: var(--md-sys-values-shape-extra-large);
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  padding: var(--md-sys-padding-medium);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  z-index: 40;
+
+  &:after {
+    content: " ";
+    display: inline-block;
+    text-align: left;
+    animation: dots-end 2s infinite;
+  }
+  @media (max-width: 768px) {
+    width: auto;
+    height: auto;
+  }
+}
+
+@keyframes dots-end {
+  0%,
+  100% {
+    content: " ";
+  }
+  20% {
+    content: " .";
+  }
+  40% {
+    content: " ..";
+  }
+  60% {
+    content: " ...";
+  }
+}
