@@ -5,7 +5,8 @@ import useConnection from "../../../hooks/connection.app";
 import NoteItem from "./Note";
 import EditNoteDialog from "./EditNoteDialog";
 import NotesViewSplashes from "./NotesView.splashes";
-import useEditNotes from "../../../hooks/edit.notes";
+import useEditNotes from "./edit.notes";
+
 
 export default function Notes(props: { notesHook: NotesHook }) {
   useConnection();

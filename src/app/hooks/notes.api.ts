@@ -68,11 +68,25 @@ function useNotes(apiUrl: string): NotesHook {
     }
   }, [apiUrl, handleError]);
 
+  const refetch = useCallback(async () => {
+    await fetchNotes();
+  }, [fetchNotes]);
+
+  useEffect(() => {
+    fetchNotes();
+    return () => {
+      if (cancelTokenSourceRef.current) {
+        cancelTokenSourceRef.current.cancel();
+      }
+    };
+  }, [fetchNotes]);
+
   const handleSuccessfulOperation = useCallback(
     (message: string) => {
       enqueueSnackbar(message, { variant: "success" });
+      refetch();
     },
-    [enqueueSnackbar]
+    [enqueueSnackbar, refetch]
   );
 
   const createNote = useCallback(
@@ -149,19 +163,6 @@ function useNotes(apiUrl: string): NotesHook {
       throw err;
     }
   }, [apiUrl, handleError]);
-
-  const refetch = useCallback(async () => {
-    await fetchNotes();
-  }, [fetchNotes]);
-
-  useEffect(() => {
-    fetchNotes();
-    return () => {
-      if (cancelTokenSourceRef.current) {
-        cancelTokenSourceRef.current.cancel();
-      }
-    };
-  }, [fetchNotes]);
 
   useEffect(() => {
     heartbeatRef.current = setInterval(() => {

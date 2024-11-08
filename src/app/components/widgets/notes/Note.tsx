@@ -2,7 +2,8 @@ import clsx from "clsx";
 import type { NotesHook, Note } from "../../../hooks/notes.api";
 import IconButton from "../buttons/icon-button/IconButton";
 import Markdown from "react-markdown";
-import { NotesEditHook } from "../../../hooks/edit.notes";
+import { NotesEditHook } from "./edit.notes";
+
 
 export default function NoteItem({
   hooks,
