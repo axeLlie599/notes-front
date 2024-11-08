@@ -165,13 +165,13 @@ function useNotes(apiUrl: string): NotesHook {
 
   useEffect(() => {
     heartbeatRef.current = setInterval(() => {
-      void fetchNotes();
+      void refetch();
     }, HEARTBEAT_INTERVAL);
 
     return () => {
       clearInterval(heartbeatRef.current!);
     };
-  }, [fetchNotes]);
+  }, [refetch]);
 
   return {
     notes,
