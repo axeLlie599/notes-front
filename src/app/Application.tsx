@@ -6,10 +6,34 @@ import IconButton from "./components/widgets/buttons/icon-button/IconButton";
 import Header from "./components/general/header/Header";
 import Main from "./components/general/main/Main";
 import useNotes from "./hooks/notes.api";
+import { useEffect, useRef } from "react";
 
 export default function Application() {
   const themeHook = useTheme({ enabled: true });
   const notesHook = useNotes("https://notes-api-qvr8.onrender.com");
+
+  const notesScrollRef = useRef(false);
+
+  useEffect(() => {
+    const notesUl = document.querySelector(".Notes ul");
+    const header = document.querySelector(".Header");
+
+    const handleScroll = () => {
+      const isScrolled = notesUl!.scrollTop > 0;
+      if (isScrolled !== notesScrollRef.current) {
+        notesScrollRef.current = isScrolled;
+        if (isScrolled) {
+          header?.classList.add("scroll");
+        } else {
+          header?.classList.remove("scroll");
+        }
+      }
+    };
+
+    notesUl?.addEventListener("scroll", handleScroll);
+
+    return () => notesUl?.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="Application">

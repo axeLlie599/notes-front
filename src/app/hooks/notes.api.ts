@@ -24,7 +24,13 @@ export type NotesHook = {
 
 const HEARTBEAT_INTERVAL = TimeUnits.Minute / 2;
 
-function useNotes(apiUrl: string): NotesHook {
+function useNotes(
+  apiUrl: string,
+  heartbeat: { interval?: number; enabled: boolean } = {
+    interval: HEARTBEAT_INTERVAL,
+    enabled: false,
+  }
+): NotesHook {
   const { enqueueSnackbar } = useSnackbar();
   const [notes, setNotes] = useState<Note[]>([]);
   const [error, setError] = useState<AxiosError | null>(null);
@@ -167,12 +173,12 @@ function useNotes(apiUrl: string): NotesHook {
   useEffect(() => {
     heartbeatRef.current = setInterval(() => {
       void refetch();
-    }, HEARTBEAT_INTERVAL);
+    }, heartbeat.interval);
 
     return () => {
       clearInterval(heartbeatRef.current!);
     };
-  }, [refetch]);
+  }, [heartbeat.interval, refetch]);
 
   return {
     notes,

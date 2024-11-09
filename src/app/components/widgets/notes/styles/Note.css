@@ -52,6 +52,7 @@
   }
   & .content {
     overflow-y: auto;
+    font-size: inherit;
   }
 
   & .header {
