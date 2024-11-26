@@ -1,70 +1,25 @@
-import "./Application.css";
-
+import Main from "../assets/components/general/main/Main";
+import useNotes from "../app/hooks/api/notes.api";
+import AppHeader from "./Application.header";
 import useTheme from "./hooks/theme.app";
-import IconButton from "./components/widgets/buttons/icon-button/IconButton";
-//import useNotes from "./hooks/notes.api";
-import Header from "./components/general/header/Header";
-import Main from "./components/general/main/Main";
-import useNotes from "./hooks/notes.api";
-import { useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
+import { StrictMode } from "react";
+import "../assets/styles/main.css";
 
 export default function Application() {
-  const themeHook = useTheme({ enabled: true });
   const notesHook = useNotes("https://notes-api-qvr8.onrender.com");
-
-  const notesScrollRef = useRef(false);
-
-  useEffect(() => {
-    const notesUl = document.querySelector(".Notes ul");
-    const header = document.querySelector(".Header");
-
-    const handleScroll = () => {
-      const isScrolled = notesUl!.scrollTop > 0;
-      if (isScrolled !== notesScrollRef.current) {
-        notesScrollRef.current = isScrolled;
-        if (isScrolled) {
-          header?.classList.add("scroll");
-        } else {
-          header?.classList.remove("scroll");
-        }
-      }
-    };
-
-    notesUl?.addEventListener("scroll", handleScroll);
-
-    return () => notesUl?.removeEventListener("scroll", handleScroll);
-  }, []);
+  const themeHook = useTheme();
 
   return (
-    <div className="Application">
-      <Header>
-        <Header.SectionLeft>
-          <span className="headline">{document.title}</span>
-        </Header.SectionLeft>
-        <Header.SectionRight>
-          <IconButton
-            icon="clear_all"
-            tooltipLabel="Clear notes"
-            disabled={
-              notesHook.notes.length === 0 ||
-              notesHook.isLoading ||
-              notesHook.error
-                ? true
-                : false
-            }
-            onClick={notesHook.clearNotes}
-          />
-          <IconButton
-            icon={
-              themeHook.currentTheme === "dark" ? "light_mode" : "dark_mode"
-            }
-            onClick={themeHook.toggle}
-            tooltipPosition="left"
-            classes="theme-switch"
-          />
-        </Header.SectionRight>
-      </Header>
+    <div className="flex column wide centered" id="Application">
+      <AppHeader hooks={{ notesHook, themeHook: themeHook }} />
       <Main notesHook={notesHook} />
     </div>
   );
 }
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <Application />
+  </StrictMode>
+);

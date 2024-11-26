@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Note, NotesHook } from "../../../hooks/notes.api";
-
+import { Note, NotesHook } from "../../../../app/hooks/api/notes.api";
 
 export type NotesEditHook = {
   setNoteID: (_i: number | null) => void;

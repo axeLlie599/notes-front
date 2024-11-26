@@ -1,4 +1,4 @@
-import { NotesHook } from "../../../hooks/notes.api";
+import { NotesHook } from "../../../../app/hooks/api/notes.api";
 import FAB from "../../widgets/buttons/fab/FAB";
 import Notes from "../../widgets/notes/NotesView";
 import "./Main.css";

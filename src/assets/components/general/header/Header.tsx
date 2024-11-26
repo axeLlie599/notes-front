@@ -8,11 +8,26 @@ interface HeaderProps {
   id?: string;
   children?: React.ReactNode;
   fixed?: boolean;
+  inScroll?: boolean;
 }
 
-const Header = ({ children, classes, id, fixed = false }: HeaderProps) => {
+const Header = ({
+  children,
+  classes,
+  id,
+  fixed = false,
+  inScroll = true,
+}: HeaderProps) => {
   return (
-    <header className={clsx("Header", classes, fixed && "fixed")} id={id}>
+    <header
+      className={clsx(
+        "Header",
+        classes,
+        fixed && "fixed",
+        inScroll && "scroll"
+      )}
+      id={id}
+    >
       {children}
     </header>
   );

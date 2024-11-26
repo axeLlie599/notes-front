@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 
-export type ThemeHookReturn = {
+export type ThemeHook = {
   isDark: boolean;
   toggle: () => void;
   currentTheme: "dark" | "light";
 };
 
-export default function useTheme({
-  enabled = true,
-}: {
-  enabled?: boolean;
-}): ThemeHookReturn {
+export default function useTheme(enabled = true): ThemeHook {
   const [dark, setDark] = useState(
     () => window.matchMedia("(prefers-color-scheme: dark)").matches
   );

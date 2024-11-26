@@ -1,4 +1,4 @@
-import { NotesHook } from "../../../hooks/notes.api";
+import { NotesHook } from "../../../../app/hooks/api/notes.api";
 import FilledButton from "../buttons/filled/FilledButton";
 import Splash from "../splash/Splash";
 
@@ -13,7 +13,6 @@ export default function NotesViewSplashes({
     <Splash classes={type}>
       {type === "no-notes" ? (
         <>
-          <Splash.Icon icon="info" iconSet="material-icons-outlined" />
           <Splash.Title title="No notes" />
           <Splash.Content>
             <p>
@@ -23,7 +22,6 @@ export default function NotesViewSplashes({
           </Splash.Content>
           <FilledButton
             onClick={() => notesHook.createNote()}
-            tooltip="Create a new note"
             title="New note"
           />
         </>
@@ -37,7 +35,9 @@ export default function NotesViewSplashes({
             <p>
               Possibly, you haven't Internet connection or the server is down.
               <br />
-              For more details, check <strong>the browser console</strong>.
+              For more details, check <strong>
+                the browser console
+              </strong>.
             </p>
           </Splash.Content>
           <FilledButton
