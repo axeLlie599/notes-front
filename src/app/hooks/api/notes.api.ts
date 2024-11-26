@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useSnackbar } from "notistack";
 import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
-import { TimeUnits } from "../utils";
+import { TimeUnits } from "../../utils";
 
 export interface Note {
   id?: number | null;

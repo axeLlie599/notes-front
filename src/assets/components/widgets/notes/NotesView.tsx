@@ -1,12 +1,11 @@
-import { NotesHook } from "../../../hooks/notes.api";
+import { Note, NotesHook } from "../../../../app/hooks/api/notes.api";
 import "./styles/NotesView.css";
 
-import useConnection from "../../../hooks/connection.app";
+import useConnection from "../../../../app/hooks/connection.app";
 import NoteItem from "./Note";
 import EditNoteDialog from "./EditNoteDialog";
 import NotesViewSplashes from "./NotesView.splashes";
 import useEditNotes from "./edit.notes";
-
 
 export default function Notes(props: { notesHook: NotesHook }) {
   useConnection();
@@ -25,7 +24,7 @@ export default function Notes(props: { notesHook: NotesHook }) {
     else
       return (
         <ul>
-          {props.notesHook.notes.map((note) => (
+          {props.notesHook.notes.map((note: Note) => (
             <NoteItem key={note.id} note={note} hooks={hooks} />
           ))}
         </ul>
