@@ -1,8 +1,8 @@
 import { Dialog, DialogPanel } from "@headlessui/react";
-import FilledButton from "../buttons/filled/FilledButton";
-import IconButton from "../buttons/icon-button/IconButton";
-import { Note, NotesHook } from "../../../../app/hooks/api/notes.api";
+import FilledButton from "../button/filled/FilledButton";
+import IconButton from "../button/icon-button/IconButton";
 import { NotesEditHook } from "./edit.notes";
+import { NotesHook, Note } from "../../../app/hooks/api/notes.api";
 
 export default function EditNoteDialog({
   hooks,

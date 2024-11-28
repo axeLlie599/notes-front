@@ -1,6 +1,6 @@
-import Header from "../assets/components/general/header/Header";
-import IconButton from "../assets/components/widgets/buttons/icon-button/IconButton";
 import { NotesHook } from "../app/hooks/api/notes.api";
+import Header from "../components/general/header/Header";
+import IconButton from "../components/widgets/button/icon-button/IconButton";
 import useNotesScroll from "./hooks/header-scroll.app";
 import { ThemeHook } from "./hooks/theme.app";
 
