@@ -75,6 +75,7 @@ form {
     height: auto;
     font-size: inherit;
     transition: box-shadow 0.3s ease-out;
+    align-items: center;
 
     &:hover {
       box-shadow:
@@ -92,17 +93,18 @@ form {
   }
 
   & textarea {
-    max-height: 30rem;
-    min-height: 10rem;
-    min-width: 20rem;
-    height: 20rem;
-    width: 30rem;
+    max-height: 25rem;
+    min-height: 8rem;
+    min-width: 18rem;
+    height: 18rem;
+    width: 28rem;
     font-family: monospace;
     resize: both;
     @media (max-width: 768px) {
       min-width: 100%;
-      height: 18rem;
-      max-height: 22rem;
+      width: 100%;
+      height: 16rem;
+      max-height: 20rem;
       resize: vertical;
     }
   }
