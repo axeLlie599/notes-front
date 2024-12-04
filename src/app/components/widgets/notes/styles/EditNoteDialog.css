@@ -1,0 +1,29 @@
+*:is(.Dialog) {
+  & *:is(.content-area) {
+    position: relative;
+    flex-direction: column;
+    & .md-toolbar {
+      display: flex;
+      width: 100%;
+      padding: var(--md-sys-padding-small) var(--md-sys-padding-medium);
+      height: 2.5rem;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--md-sys-padding-medium);
+    }
+    & > textarea {
+      margin-bottom: 1rem;
+    }
+    & .char-count {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0rem;
+      font-size: 0.66rem;
+      color: var(--md-sys-color-on-surface-variant);
+      background-color: var(--md-sys-color-surface-bright);
+      border-radius: var(--md-sys-values-shape-medium);
+      padding: 0.1rem 0.4rem;
+      box-shadow: 0 0 0.2rem var(--md-sys-color-shadow);
+    }
+  }
+}
