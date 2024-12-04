@@ -3,7 +3,7 @@
 @import "./material-theme/values";
 @import "../fonts/material-icons/material-icons";
 @import "../fonts/roboto/roboto";
-@import "./utilities";
+@import "./utilities.css";
 
 *,
 *:before,

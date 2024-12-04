@@ -1,4 +1,4 @@
-import { NotesHook } from "../../../app/hooks/api/notes.api";
+import { NotesHook } from "../../../hooks/api/notes.api";
 import FilledButton from "../button/filled/FilledButton";
 import Splash from "../splash/Splash";
 

@@ -13,6 +13,8 @@ interface FilledButtonProps {
   tooltip?: string;
   tooltipPosition?: PlacesType;
   type?: "button" | "submit" | "reset";
+  ref?: React.Ref<HTMLButtonElement>;
+  autoFocus?: boolean;
 }
 
 export default function FilledButton({
@@ -24,6 +26,8 @@ export default function FilledButton({
   pastelColor = false,
   title = "Filled Button",
   type = "button",
+  ref = null,
+  autoFocus = false,
 }: FilledButtonProps) {
   return (
     <>
@@ -36,6 +40,8 @@ export default function FilledButton({
         data-tooltip-content={tooltip}
         data-tooltip-place={tooltipPosition}
         onMouseLeave={(e) => e.currentTarget.blur()}
+        ref={ref}
+        autoFocus={autoFocus}
       >
         {title}
       </Button>

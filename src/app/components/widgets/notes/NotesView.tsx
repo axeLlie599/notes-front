@@ -3,8 +3,8 @@ import NoteItem from "./Note";
 import EditNoteDialog from "./EditNoteDialog";
 import NotesViewSplashes from "./NotesView.splashes";
 import useEditNotes from "./edit.notes";
-import { NotesHook, Note } from "../../../app/hooks/api/notes.api";
-import useConnection from "../../../app/hooks/connection.app";
+import { NotesHook, Note } from "../../../hooks/api/notes.api";
+import useConnection from "../../../hooks/connection.app";
 
 export default function Notes(props: { notesHook: NotesHook }) {
   useConnection();

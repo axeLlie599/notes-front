@@ -40,5 +40,6 @@
     height: auto;
     line-height: 28pt;
     font-size: var(--text-size);
+    user-select: none;
   }
 }

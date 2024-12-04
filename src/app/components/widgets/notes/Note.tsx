@@ -3,7 +3,7 @@ import clsx from "clsx";
 import IconButton from "../button/icon-button/IconButton";
 import Markdown from "react-markdown";
 import { NotesEditHook } from "./edit.notes";
-import { Note, NotesHook } from "../../../app/hooks/api/notes.api";
+import { Note, NotesHook } from "../../../hooks/api/notes.api";
 
 export default function NoteItem({
   hooks,

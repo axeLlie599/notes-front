@@ -1,19 +1,21 @@
 .notes-loading {
-  position: absolute;
-  bottom: var(--md-sys-padding-medium);
-  left: var(--md-sys-padding-medium);
-  font-size: 1.2rem;
+  position: fixed;
+  top: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
   font-weight: 500;
   font-family: monospace;
   border-radius: var(--md-sys-values-shape-extra-large);
   background-color: transparent;
   backdrop-filter: blur(5px);
-  padding: var(--md-sys-padding-medium);
+  padding: 0.5rem 1rem;
   border: 1px solid var(--md-sys-color-outline-variant);
   display: flex;
   z-index: 40;
 
   &:after {
+    font-size: 1rem;
     content: " ";
     display: inline-block;
     text-align: left;

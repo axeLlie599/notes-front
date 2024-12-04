@@ -11,6 +11,7 @@
   border: none;
   border-radius: var(--md-sys-values-shape-full);
   transition: opacity 0.2s ease-in-out;
+  user-select: none;
   & .icon {
     padding: 0;
     margin: 0;
